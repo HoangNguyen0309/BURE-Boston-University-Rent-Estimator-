@@ -1,0 +1,31 @@
+<!-- bure/templates/bure/base.html -->
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BURE</title>
+    <link rel="stylesheet" href="{% static 'bure/css/base.css' %}">
+   
+</head>
+<body>
+    <header class="baseHeader">
+        <nav class="baseNavbar">
+            <ul> <!-- nav links to other pages of our app - iwc -->
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'about_us' %}">About Us</a></li>
+                <li><a href="{% url 'data' %}">Data</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="baseBlockContentContainer">
+        {% block content %}
+        {% endblock %}
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,25 @@
+/* bure/static/bure/css/about.css */
+
+/* --- Home page styling --- */
+
+.container {
+    text-align: center;
+    padding: 4rem 1rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    max-width: 800px;
+    margin: 3rem auto;
+}
+
+.container h1 {
+    color: #003366;
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+}
+
+.container p {
+    color: #555;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}

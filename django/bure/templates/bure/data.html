@@ -1,0 +1,18 @@
+<!-- bure/templates/bure/data.html -->
+
+
+{% extends 'bure/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'bure/css/data.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Here is data!</h1>
+    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ad minus molestias asperiores, reiciendis illum odit placeat architecto quibusdam nam delectus aperiam nostrum! Culpa harum unde sequi repellendus aliquam corporis omnis?</p>
+</div>
+
+{% endblock %}
