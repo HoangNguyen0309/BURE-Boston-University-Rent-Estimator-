@@ -9,7 +9,7 @@ Hoang Nguyen — hnguy@bu.edu
 
 ---
 
-## 2. Dataset Description
+## Dataset Description
 
 <details>
 <summary><b>2.1 Data Collection</b></summary>
@@ -72,6 +72,40 @@ BURE arises from the clear need among students for a more efficient and transpar
 - Provide evaluation metrics to measure accuracy <br>  
 
 ---
+
+## Exploratory Data Analysis (EDA)
+
+<details>
+<summary><b>4.1 Correlation Analysis</b></summary>
+
+A **Pearson Correlation Coefficient (PCC)** heatmap was generated to identify linear relationships among numeric variables such as price, square footage, and number of bedrooms.
+
+This visualization highlights which attributes most strongly correlate with rental price.
+
+</details>
+<details> <summary><b>4.2 Price Relationship Plots</b></summary>
+
+Scatter plots were generated to visualize price trends across key attributes:
+
+Price vs. Square Footage
+
+Price vs. Number of Bedrooms
+
+Price vs. Number of Bathrooms
+
+These plots provide insight into how each numerical feature individually impacts rent values.
+
+plt.scatter(df['sqft'], df['price'])
+plt.title('Price vs. Square Footage')
+
+</details>
+<details> <summary><b>4.3 Boxplots for Amenity Features</b></summary>
+
+Boxplots were used to compare median and distribution of prices between apartments with and without specific amenities.
+
+
+</details>
+
 
 ## Design Outline  
 
