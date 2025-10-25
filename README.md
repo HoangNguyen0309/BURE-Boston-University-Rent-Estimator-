@@ -42,36 +42,16 @@ This dataset serves as the foundation for both **exploratory data analysis (EDA)
 
 ---
 
-## 3. Methodology
+## Methodology
 
 <details>
-<summary><b>3.1 Data Preprocessing</b></summary>
+<b>Data Preprocessing</b>
 
 - Missing values were handled by dropping incomplete rows or imputing reasonable estimates where appropriate.  
 - Amenities were represented using **one-hot encoding**, converting each amenity into a binary column.  
 - The dataset was randomly split into **training (80%)** and **testing (20%)** sets for model evaluation.
 
 </details>
-
----
-
-## Purpose  
-As many students progress in their college education, they begin seeking opportunities to become more independent individuals. One of the most common ways this happens is through moving into off-campus housing, which provides students with valuable lessons in responsibility, budgeting, and decision making. Every year, beginning around February, thousands of students begin the search for housing that best meets their needs. Comfort, proximity to campus, and most importantly to the majority, affordability are at the top of their priorities.  
-
-To address this annual challenge, we propose the development of a web-based application called **BURE**, the Boston University Rent Estimator. The goal of this platform is to simplify the off-campus housing search process by giving students a centralized, accessible, and reliable tool. Students will be able to input preferences such as location, price range, amenities, and number of roommates to view tailored housing options that fit their needs.  
-
-Through BURE, we aim to close the gap in information that often forces students into time-consuming searches and uncertain decisions. Not only will this tool help students compare housing options more effectively, but it will also highlight how certain preferences impact overall rent, allowing for smarter financial planning.  
-
-BURE arises from the clear need among students for a more efficient and transparent way to search for housing. Current solutions are often fragmented, outdated, or too generalized to address the specific needs of a student population. By leveraging live rental data and user-friendly design, our application will save students time, reduce stress, and ultimately empower them to make confident, well-informed decisions about where to live during their college years.  
-
----
-
-## Functional Requirements  
-- Be able to predict the price of rental properties given the variables: square feet, number of bedrooms, number of bathrooms, location, etc. (to be added or removed later) <br>  
-- Maintain an updated dataset <br>  
-- Provide evaluation metrics to measure accuracy <br>  
-
----
 
 ## Exploratory Data Analysis (EDA)
 
@@ -105,6 +85,26 @@ Boxplots were used to compare median and distribution of prices between apartmen
 
 
 </details>
+
+---
+
+## Purpose  
+As many students progress in their college education, they begin seeking opportunities to become more independent individuals. One of the most common ways this happens is through moving into off-campus housing, which provides students with valuable lessons in responsibility, budgeting, and decision making. Every year, beginning around February, thousands of students begin the search for housing that best meets their needs. Comfort, proximity to campus, and most importantly to the majority, affordability are at the top of their priorities.  
+
+To address this annual challenge, we propose the development of a web-based application called **BURE**, the Boston University Rent Estimator. The goal of this platform is to simplify the off-campus housing search process by giving students a centralized, accessible, and reliable tool. Students will be able to input preferences such as location, price range, amenities, and number of roommates to view tailored housing options that fit their needs.  
+
+Through BURE, we aim to close the gap in information that often forces students into time-consuming searches and uncertain decisions. Not only will this tool help students compare housing options more effectively, but it will also highlight how certain preferences impact overall rent, allowing for smarter financial planning.  
+
+BURE arises from the clear need among students for a more efficient and transparent way to search for housing. Current solutions are often fragmented, outdated, or too generalized to address the specific needs of a student population. By leveraging live rental data and user-friendly design, our application will save students time, reduce stress, and ultimately empower them to make confident, well-informed decisions about where to live during their college years.  
+
+---
+
+## Functional Requirements  
+- Be able to predict the price of rental properties given the variables: square feet, number of bedrooms, number of bathrooms, location, etc. (to be added or removed later) <br>  
+- Maintain an updated dataset <br>  
+- Provide evaluation metrics to measure accuracy <br>  
+
+---
 
 
 ## Design Outline  
