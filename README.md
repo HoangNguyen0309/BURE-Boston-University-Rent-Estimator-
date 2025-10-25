@@ -9,6 +9,52 @@ Hoang Nguyen — hnguy@bu.edu
 
 ---
 
+## 2. Dataset Description
+
+<details>
+<summary><b>2.1 Data Collection</b></summary>
+
+Data was collected through web scraping using automated Python scripts built with **Selenium** and **BeautifulSoup**.  
+Each property page was parsed to extract both **floorplan-level** and **amenity-level** information.
+
+</details>
+
+<details>
+<summary><b>2.2 Dataset Structure</b></summary>
+
+The data is saved as:   apartments_boston_minimal_amenities.csv
+
+
+Each row represents one apartment unit or floorplan, with the following columns:
+
+| Feature | Description |
+|----------|-------------|
+| `listing_url` | URL of the apartment listing |
+| `address` | Property location |
+| `price` | Monthly rent in USD |
+| `beds`, `baths` | Number of bedrooms and bathrooms |
+| `sqft` | Apartment area in square feet |
+| `Amenity_*` | Binary (0/1) columns for each amenity, e.g. `Amenity_Pool`, `Amenity_Gym`, `Amenity_Stainless_Steel_Appliances` |
+
+This dataset serves as the foundation for both **exploratory data analysis (EDA)** and **predictive modeling**.
+
+</details>
+
+---
+
+## 3. Methodology
+
+<details>
+<summary><b>3.1 Data Preprocessing</b></summary>
+
+- Missing values were handled by dropping incomplete rows or imputing reasonable estimates where appropriate.  
+- Amenities were represented using **one-hot encoding**, converting each amenity into a binary column.  
+- The dataset was randomly split into **training (80%)** and **testing (20%)** sets for model evaluation.
+
+</details>
+
+---
+
 ## Purpose  
 As many students progress in their college education, they begin seeking opportunities to become more independent individuals. One of the most common ways this happens is through moving into off-campus housing, which provides students with valuable lessons in responsibility, budgeting, and decision making. Every year, beginning around February, thousands of students begin the search for housing that best meets their needs. Comfort, proximity to campus, and most importantly to the majority, affordability are at the top of their priorities.  
 
