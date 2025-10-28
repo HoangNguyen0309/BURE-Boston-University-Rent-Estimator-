@@ -51,8 +51,6 @@ Below is an overview of the processing pipeline:
 
 -   Created **one-hot encoded columns** for every amenity tag, resulting in roughly **160 total columns**.
 
--   Added a **neighborhood column** (`Allston`, `Fenway`, `Citywide`) for segmentation.
-
 -   Standardized column names and types across datasets to ensure smooth merging.
 
 After cleaning, the dataset is consistent, numerically encoded, and ready for visualization and modeling.
@@ -197,10 +195,6 @@ To explore the impact of geographic focus, we trained a second model using only 
 
 **6\. Next Steps**
 ------------------
-
--   **Feature Expansion:** Add geospatial and contextual data such as distance to MBTA, building age, and proximity to universities.
-
--   **Advanced Models:** Explore Ridge, Lasso, and ElasticNet for regularization; Random Forest or XGBoost for nonlinear relationships.
 
 -   **Neighborhood Segmentation:** Develop per-area models and combine them into a hierarchical ensemble for better generalization.
 
