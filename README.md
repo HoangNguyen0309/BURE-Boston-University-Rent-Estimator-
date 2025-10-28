@@ -114,6 +114,8 @@ To identify which features most influence price beyond structural ones, we calcu
 
 These correlations guided feature selection for our baseline model.
 
+See all PCC values in P/price_correlations.csv
+
 #### **Low-Impact Features**
 
 Many amenities such as *Clubhouse*, *Pet Park*, and *High Speed Internet* had near-zero correlation, implying minimal direct price influence.
