@@ -1,3 +1,268 @@
+**Midterm Report -- Boston Apartment Price Prediction**
+======================================================
+
+
+**1\. Introduction**
+--------------------
+
+The goal of this project is to predict apartment rental prices across Boston using data scraped from **Apartments.com**.\
+Our motivation is to identify which features --- such as size, number of rooms, and amenities --- most influence rent levels, and whether **neighborhood-specific models** improve prediction accuracy.
+
+We selected **Apartments.com** as our primary data source because it provides a large number of listings with structured and detailed attributes. Using a custom Python scraper built with **BeautifulSoup**, we extracted the following fields for each property:
+
+-   Price
+
+-   Number of bedrooms and bathrooms
+
+-   Square footage
+
+-   Address and listing URL
+
+-   100+ one-hot encoded amenity features (e.g., *Washer/Dryer*, *Fitness Center*, *Concierge Service*, *Air Conditioning*)
+
+So far, we've collected approximately **2,000 listings across the greater Boston area**, plus an additional **3,000 listings specifically focused on neighborhoods such as Allston and Fenway**.\
+These subsets allow us to analyze both **citywide patterns** and **localized neighborhood dynamics**.
+
+* * * * *
+
+**2\. Data Processing**
+-----------------------
+
+The raw HTML data from Apartments.com was parsed and transformed into structured datasets using Python.\
+Below is an overview of the processing pipeline:
+
+### **2.1 Data Extraction**
+
+-   Parsed property cards with **BeautifulSoup**, storing key attributes in CSV and XLSX formats.
+
+-   Extracted `price`, `beds`, `baths`, `sqft`, `address`, and all available amenities from each listing.
+
+### **2.2 Data Cleaning and Normalization**
+
+-   Converted text-based numeric values (e.g., "1 Bed", "750 Sq Ft") into integers or floats.
+
+-   Removed symbols such as `$`, `,`, and text labels like "sqft" or "beds".
+
+-   Used `pandas.to_numeric(errors='coerce')` to handle type conversion safely.
+
+-   Dropped rows with missing or invalid values **only for modeling**, not for EDA.
+
+### **2.3 Feature Engineering**
+
+-   Created **one-hot encoded columns** for every amenity tag, resulting in roughly **160 total columns**.
+
+-   Added a **neighborhood column** (`Allston`, `Fenway`, `Citywide`) for segmentation.
+
+-   Standardized column names and types across datasets to ensure smooth merging.
+
+After cleaning, the dataset is consistent, numerically encoded, and ready for visualization and modeling.
+
+* * * * *
+
+**3\. Preliminary Visualizations**
+----------------------------------
+
+### **3.1 Price Distribution**
+
+A histogram of rental prices shows a **right-skewed distribution** --- most apartments rent between **$2,000 and $5,000**, with a smaller number of luxury listings exceeding $10,000.\
+This skew indicates significant variation across neighborhoods and property types.
+
+* * * * *
+
+### **3.2 Price vs Key Numeric Features**
+
+Scatter plots for **price vs. square footage**, **beds**, and **baths** show strong positive trends.\
+Each additional bedroom, bathroom, or square foot generally increases rent, supporting the idea that **size and room count** are dominant factors.
+
+* * * * *
+
+### **3.3 Amenity Impact and Correlation Analysis (PCC Values)**
+
+To identify which features most influence price beyond structural ones, we calculated the **Pearson Correlation Coefficient (PCC)** between `price` and every numeric column --- totaling approximately **160 features**, mostly representing binary amenities.
+
+#### **Computation Details**
+
+-   PCC quantifies linear association, ranging from **-1 (perfect negative)** to **+1 (perfect positive)**.
+
+-   Used Pandas `.corr(method="pearson")` to compute a **160×160 correlation matrix**.
+
+-   The results were visualized as a **heatmap**, highlighting feature clusters.
+
+#### **Findings**
+
+-   **Top positive correlations** with `price` (structural):
+
+    -   `baths` → **+0.60**
+
+    -   `beds` → **+0.55**
+
+    -   `sqft` → **+0.44**
+
+-   **Top correlated amenities**:
+
+    -   `Amenity_Concierge` → **+0.31**
+
+    -   `Amenity_24_Hour_Access` → **+0.23**
+
+    -   `Amenity_Washer_Dryer` → **+0.22**
+
+    -   `Amenity_Fitness_Center` → **+0.22**
+
+    -   `Amenity_Double_Vanities` → **+0.21**
+
+    -   `Amenity_Conference_Rooms` → **+0.20**
+
+    -   `Amenity_Island_Kitchen` → **+0.20**
+
+These correlations guided feature selection for our baseline model.
+
+#### **Low-Impact Features**
+
+Many amenities such as *Clubhouse*, *Pet Park*, and *High Speed Internet* had near-zero correlation, implying minimal direct price influence.
+
+#### **Visualization**
+
+A **PCC heatmap** visualized how certain amenities group together --- for example, luxury-related features (Concierge, Double Vanities, Package Service) tend to correlate with each other, indicating **multicollinearity** among higher-end properties.
+
+* * * * *
+
+**4\. Data Modeling Methods**
+-----------------------------
+
+### **4.1 Feature Selection Using PCC**
+
+The correlation analysis helped identify the most relevant predictors for modeling.\
+We selected the **top 15 features with the highest absolute correlation** to `price`, which significantly improved model interpretability and computational efficiency by excluding redundant or low-impact variables.
+
+* * * * *
+
+### **4.2 Linear Regression (Baseline Model)**
+
+We used **Linear Regression** as our baseline to predict apartment prices.\
+The model used 13--15 features (depending on neighborhood availability), including both **structural** and **amenity-based** variables.
+
+#### **Model Configuration**
+
+-   Train-test split: **80/20**
+
+-   Repeated **100 random splits** for robust averaging
+
+-   Metrics: **R²** (explained variance) and **MAE** (Mean Absolute Error)
+
+#### **Results (Citywide Model)**
+
+| Metric | Average | Std. Dev | Min | Max |
+| --- | --- | --- | --- | --- |
+| **R²** | 0.50 | 0.19 | -0.70 | 0.66 |
+| **MAE ($)** | 603 | --- | --- | --- |
+
+The citywide model explains roughly **50% of the variance** in rental prices --- a solid baseline given the data's diversity and scale.
+
+* * * * *
+
+### **4.3 Area-Specific Modeling (Fenway Subset)**
+
+To explore the impact of geographic focus, we trained a second model using only **Fenway listings** (~900 rows).
+
+| Metric | Citywide | Fenway |
+| --- | --- | --- |
+| **Avg R²** | 0.49 | **0.84** |
+| **Std R²** | 0.21 | 0.02 |
+| **Avg MAE ($)** | 607 | **358** |
+
+#### **Interpretation**
+
+-   Fenway's model shows a **+0.35 R² improvement** and **$250 lower MAE**, demonstrating that **localized models** capture market-specific relationships more effectively.
+
+-   This suggests the Boston rental market is **heterogeneous**, and neighborhood segmentation significantly boosts predictive performance.
+
+* * * * *
+
+**5\. Preliminary Results and Findings**
+----------------------------------------
+
+1.  **Linear relationships confirmed:** Rent increases proportionally with square footage, bedrooms, and bathrooms.
+
+2.  **Amenity influence:** Premium features like *Washer/Dryer* and *Fitness Center* are consistently associated with higher rents.
+
+3.  **Modeling performance:**
+
+    -   Citywide model → R² ≈ 0.50 (moderate accuracy).
+
+    -   Fenway model → R² ≈ 0.84 (high accuracy).
+
+4.  **Key insight:** Price prediction accuracy improves dramatically when modeling neighborhoods individually rather than treating Boston as a single market.
+
+* * * * *
+
+**6\. Next Steps**
+------------------
+
+-   **Feature Expansion:** Add geospatial and contextual data such as distance to MBTA, building age, and proximity to universities.
+
+-   **Advanced Models:** Explore Ridge, Lasso, and ElasticNet for regularization; Random Forest or XGBoost for nonlinear relationships.
+
+-   **Neighborhood Segmentation:** Develop per-area models and combine them into a hierarchical ensemble for better generalization.
+
+-   **Model Validation:** Apply k-fold cross-validation and test cross-neighborhood transferability.
+
+* * * * *
+
+**7\. Conclusion**
+------------------
+
+Our preliminary results show that even a simple **linear regression model** can explain a significant portion of rental price variation in Boston.\
+However, the analysis also reveals that **location matters greatly** --- Fenway-specific models outperform citywide ones by a wide margin.
+
+By leveraging **PCC-based feature selection**, **localized modeling**, and future spatial features, our project aims to build a highly interpretable and accurate **Boston Rent Estimator** that reflects real-world housing dynamics.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # CS506 Project Proposal  
 ## BURE: Boston University Rent Estimator  
 
