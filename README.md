@@ -1,4 +1,4 @@
-**Midterm Report -- Boston Apartment Price Prediction**
+**Midterm Report -- Boston University Rent Estimator**
 ======================================================
 
 
