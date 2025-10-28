@@ -1,6 +1,7 @@
 **Midterm Report -- Boston University Rent Estimator**
 ======================================================
 
+https://www.youtube.com/watch?v=zriX58kdYWE&feature=youtu.be 
 
 **1\. Introduction**
 --------------------
