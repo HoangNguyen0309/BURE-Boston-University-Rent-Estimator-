@@ -12,33 +12,33 @@ body {
     color: #333;
 }
 
-.baseHeader {
+.base-navbar {
     background-color: #003366;
     color: white;
     padding: 1rem 0;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.baseNavbar ul {
+.base-navbar ul {
     list-style: none;
     display: flex;
     justify-content: center;
-    gap: 2rem;
+    gap: 17%;
 }
 
-.baseNavbar a {
+.base-navbar a {
     color: white;
     text-decoration: none;
     font-weight: 500;
     transition: color 0.2s ease;
 }
 
-.baseNavbar a:hover {
+.base-navbar a:hover {
     color: #ffcc00;
 }
 
-.baseBlockContentContainer {
-    max-width: 900px;
+.base-block-content-container {
+    width: 80%;
     margin: 2rem auto;
     padding: 1rem 2rem;
     background-color: white;

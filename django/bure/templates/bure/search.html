@@ -1,0 +1,196 @@
+<!-- /bure/templates/bure/search.html -->
+
+{% extends "bure/base.html" %}
+
+{% block content %}
+<div class="estimate-container">
+  <h1 style="margin: 10px;">Rent Estimate</h1>
+  <p style="margin-bottom: 15px;">Enter your unit details and amenities to get an estimated monthly rent.</p>
+
+  <form method="get" action="">
+    <fieldset class="basic-fields">
+      <legend>Basic Info</legend>
+
+      <label for="beds">Beds</label>
+      <input
+        type="number"
+        name="beds"
+        id="beds"
+        min="0"
+        step="1"
+        required
+      />
+
+      <label for="baths">Baths</label>
+      <input
+        type="number"
+        name="baths"
+        id="baths"
+        min="0"
+        step="0.5"
+        required
+      />
+
+      <label for="sqft">Square Feet</label>
+      <input
+        type="number"
+        name="sqft"
+        id="sqft"
+        min="0"
+        step="1"
+        required
+      />
+    </fieldset>
+
+    <fieldset class="amenities">
+      <legend>Amenities</legend>
+
+      <label>
+        <input type="checkbox" name="Amenity_Concierge" value="1">
+        Concierge
+      </label>
+
+      <label>
+        <input type="checkbox" name="Amenity_A_24_Hour_Access" value="1">
+        24 Hour Access
+      </label>
+
+      <label>
+        <input type="checkbox" name="Amenity_Washer_Dryer" value="1">
+        In-Unit Washer/Dryer
+      </label>
+
+      <label>
+        <input type="checkbox" name="Amenity_Fitness_Center" value="1">
+        Fitness Center
+      </label>
+
+      <label>
+        <input type="checkbox" name="Amenity_Double_Vanities" value="1">
+        Double Vanities
+      </label>
+
+      <label>
+        <input type="checkbox" name="Amenity_Conference_Rooms" value="1">
+        Conference Rooms
+      </label>
+
+      <label>
+        <input type="checkbox" name="Amenity_Island_Kitchen" value="1">
+        Island Kitchen
+      </label>
+
+      <label>
+        <input type="checkbox" name="Amenity_Walk_In_Closets" value="1">
+        Walk-In Closets
+      </label>
+
+      <label>
+        <input type="checkbox" name="Amenity_Package_Service" value="1">
+        Package Service
+      </label>
+
+      <label>
+        <input type="checkbox" name="Amenity_On_Site_Retail" value="1">
+        On-Site Retail
+      </label>
+
+      <label>
+        <input type="checkbox" name="Amenity_Air_Conditioning" value="1">
+        Air Conditioning
+      </label>
+
+      <label>
+        <input type="checkbox" name="Amenity_Public_Transportation" value="1">
+        Close to Public Transportation
+      </label>
+
+      <label>
+        <input type="checkbox" name="Amenity_Bicycle_Storage" value="1">
+        Bicycle Storage
+      </label>
+
+      <label>
+        <input type="checkbox" name="Amenity_Elevator" value="1">
+        Elevator
+      </label>
+
+      <label>
+        <input type="checkbox" name="Amenity_EV_Charging" value="1">
+        EV Charging
+      </label>
+
+      <label>
+        <input type="checkbox" name="Amenity_Recycling" value="1">
+        Recycling
+      </label>
+
+      <label>
+        <input type="checkbox" name="Amenity_Views" value="1">
+        View / City View
+      </label>
+    </fieldset>
+
+    <button type="submit" class="btn-primary">Get Estimate</button>
+  </form>
+</div>
+
+<style>
+  .estimate-container {
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  fieldset {
+    border: 1px solid #ddd;
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+  }
+
+  legend {
+    font-weight: 600;
+    padding: 0 0.25rem;
+  }
+
+  .basic-fields label {
+    display: block;
+    margin-top: 0.75rem;
+    font-weight: 500;
+  }
+
+  .basic-fields input[type="number"] {
+    width: 100%;
+    padding: 0.4rem 0.6rem;
+    margin-top: 0.25rem;
+  }
+
+  .amenities {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.5rem 1rem;
+  }
+
+  .amenities label {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.95rem;
+  }
+
+  .btn-primary {
+    margin-top: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+  }
+</style>
+{% endblock %}

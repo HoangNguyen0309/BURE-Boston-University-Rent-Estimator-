@@ -12,20 +12,21 @@
    
 </head>
 <body>
-    <header class="baseHeader">
-        <nav class="baseNavbar">
+    <header class="base-header">
+        <nav class="base-navbar">
             <ul> <!-- nav links to other pages of our app - iwc -->
-                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'estimate' %}">Estimate</a></li>
                 <li><a href="{% url 'about_us' %}">About Us</a></li>
                 <li><a href="{% url 'data' %}">Data</a></li>
             </ul>
         </nav>
     </header>
 
-    <div class="baseBlockContentContainer">
+    <div class="base-block-content-container">
         {% block content %}
         {% endblock %}
     </div>
-    
+
 </body>
 </html>
+

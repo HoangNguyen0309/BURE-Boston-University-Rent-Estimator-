@@ -1,0 +1,109 @@
+<!-- /bure/templates/bure/search_results.html -->
+
+
+{% extends "bure/base.html" %}
+
+{% block content %}
+<div class="results-container">
+    <h1>Estimated Monthly Rent:</h1>
+
+    <div class="estimate-card">
+        <p class="estimate-number">
+        ${{ est_price|floatformat:0 }} per month
+        </p>
+        <p class="estimate-subtext">
+        *Based on the details you entered.
+        </p>
+    </div>
+
+    <br>
+    <br>
+    <h2>Inputs:</h2>
+    <br>
+    <div class="widget-grid">
+
+        <div class="widget">
+            <h3>Basic Values</h3>
+            <ul class="amenities-list">
+                <li style="list-style:none;">Beds: {{ basic_vals.beds }}</li>
+                <li style="list-style:none;">Baths: {{ basic_vals.baths }}</li>
+                <li style="list-style:none;">Sqft: {{ basic_vals.sqft }}</li>
+            </ul>   
+        </div>
+            
+        <div class="widget">
+            <h3>Amenities</h3>
+            {% if enabled_amenities %}
+            <ul class="amenities-list">
+                {% for label in enabled_amenities %}
+                <li>{{ label }}</li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>No amenities selected.</p>
+            {% endif %}
+        </div>
+
+    </div>
+
+    
+  <a href="{% url 'estimate' %}" class="btn-secondary">Run another estimate</a>
+</div>
+
+<style>
+  .results-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 1.5rem;
+  }
+  
+
+  .estimate-card {
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+
+  .estimate-number {
+    font-size: 2.4rem;
+    font-weight: 700;
+    border-bottom: 1px black solid;
+    padding: 10px;
+
+  }
+
+  .estimate-subtext {
+    margin-top: 0.3rem;
+    font-style: italic;
+  }
+
+  .widget-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.5rem 1rem;
+    justify-items: center;
+  }
+
+  .widget {
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.95rem;
+  }
+
+  .amenities-list {
+    padding: 10px;
+  }
+
+
+  .btn-secondary {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 0.5rem 1.1rem;
+    border-radius: 999px;
+    border: 1px solid #ccc;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+
+</style>
+{% endblock %}

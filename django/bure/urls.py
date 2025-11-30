@@ -4,9 +4,9 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('', HomeView, name="home"),      # default home page for web app
-    path('/home', HomeView, name="home"), # url path either '' or '/home' - iwc
-    path('/about', AboutView, name='about_us'), # url path for about us page - iwc
-    path('/data', DataView, name='data'), # url path for data page - iwc
+    path('', RentEstimateSearch.as_view(), name="estimate"), # url path for webapp defaults to estimate page - iwc
+    path('estimate', RentEstimateSearch.as_view(), name="estimate"), # url path for estimate page - iwc
+    path('about', AboutView.as_view(), name='about_us'), # url path for about us page - iwc
+    path('data', DataView.as_view(), name='data'), # url path for data page - iwc
 
 ]
