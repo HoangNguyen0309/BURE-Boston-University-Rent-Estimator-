@@ -6,7 +6,7 @@ from django.conf import settings
 from joblib import load
 
 
-MODEL_PATH = os.path.join(settings.BASE_DIR, "ml_models", "allston_linear_model.joblib")
+MODEL_PATH = os.path.join(settings.BASE_DIR, "..", "P", "allston_linear_model.joblib")
 
 # Load once at import (thread-safe for reads in sklearn)
 _bundle = load(MODEL_PATH)

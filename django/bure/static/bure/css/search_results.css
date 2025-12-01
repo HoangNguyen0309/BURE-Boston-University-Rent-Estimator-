@@ -1,0 +1,69 @@
+
+.results-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+
+.estimate-card {
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.estimate-number {
+    font-size: 2.4rem;
+    font-weight: 700;
+    border-bottom: 1px black solid;
+    padding: 10px;
+
+}
+
+.estimate-subtext {
+    margin-top: 0.3rem;
+    font-style: italic;
+    font-weight: lighter;
+    font-size: small;
+}
+
+.widget-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+.widget {
+    gap: 0.35rem;
+    font-size: 0.95rem;
+    justify-items: center;
+
+}
+
+.amenities-list {
+    padding: 10px;
+    justify-items: center;
+    list-style: none;
+
+}
+
+
+.btn-secondary {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 7px 14px;
+    border-radius: 10px;
+    border: 2px solid #003366;
+    color: #003366;
+    font-weight: 500;
+
+    transition: all .3s ease-in-out;
+}
+
+.btn-secondary:hover {
+    scale: 1.05;
+    text-decoration: none;
+    background-color: #003366;
+    border: 2px solid black;
+    color: #ffffff;
+    
+}
+

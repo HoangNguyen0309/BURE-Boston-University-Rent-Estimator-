@@ -3,6 +3,7 @@
 
 {% extends "bure/base.html" %}
 
+
 {% block content %}
 <div class="results-container">
     <h1>Estimated Monthly Rent:</h1>
@@ -21,6 +22,19 @@
     <h2>Inputs:</h2>
     <br>
     <div class="widget-grid">
+
+        <div class="widget">
+          <h3>Selected Areas</h3>
+          {% if selected_locations %}
+            <ul class="amenities-list">
+              {% for loc in selected_locations %}
+                <li>{{ loc }}</li>
+              {% endfor %}
+            </ul>
+            {% else %}
+              <p>No locations selected.</p>
+          {% endif %}
+        </div>
 
         <div class="widget">
             <h3>Basic Values</h3>
@@ -74,34 +88,49 @@
   .estimate-subtext {
     margin-top: 0.3rem;
     font-style: italic;
+    font-weight: lighter;
+    font-size: small;
   }
 
   .widget-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 0.5rem 1rem;
-    justify-items: center;
   }
 
   .widget {
-    align-items: center;
     gap: 0.35rem;
     font-size: 0.95rem;
+    justify-items: center;
+
   }
 
   .amenities-list {
     padding: 10px;
+    justify-items: center;
+    list-style: none;
+
   }
 
 
   .btn-secondary {
     display: inline-block;
     margin-top: 2rem;
-    padding: 0.5rem 1.1rem;
-    border-radius: 999px;
-    border: 1px solid #ccc;
-    text-decoration: none;
+    padding: 7px 14px;
+    border-radius: 10px;
+    border: 2px solid #003366;
+    color: #003366;
     font-weight: 500;
+
+    transition: all .3s ease-in-out;
+  }
+
+  .btn-secondary:hover {
+    scale: 1.05;
+    text-decoration: none;
+    background-color: #003366;
+    border: 2px solid black;
+    color: #ffffff;
+    
   }
 
 

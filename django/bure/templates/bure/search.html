@@ -1,6 +1,7 @@
 <!-- /bure/templates/bure/search.html -->
 
 {% extends "bure/base.html" %}
+{% load static %}
 
 {% block content %}
 <div class="estimate-container">
@@ -8,6 +9,51 @@
   <p style="margin-bottom: 15px;">Enter your unit details and amenities to get an estimated monthly rent.</p>
 
   <form method="get" action="">
+
+    <fieldset class="basic-fields">
+        <legend>Location</legend>
+
+        <div class="location-mode-toggle">
+            <button type="button" class="mode-btn active" data-mode="list">List</button>
+            <button type="button" class="mode-btn" data-mode="map">Map</button>
+            <input type="hidden" name="location_mode" id="location_mode" value="list">
+        </div>
+
+        <div id="location-list-mode">
+
+            <label>
+              <input type="checkbox" name="locations" value="allston">
+              Allston
+            </label>
+            <label>
+              <input type="checkbox" name="locations" value="brighton">
+              Brighton
+            </label>
+            <label>
+              <input type="checkbox" name="locations" value="fenway">
+              Fenway / Kenmore
+            </label>
+            <label>
+              <input type="checkbox" name="locations" value="back_bay">
+              Back Bay
+            </label>
+        </div>
+
+        <div id="location-map-mode" style="display: none;">
+            <p class="helper-text">
+                Click one or more areas on the map to select locations.
+            </p>
+
+            <div id="location-map" class="map-container"></div>
+            <!-- 
+                map_toggle.js will inject html, for example:
+
+                <input type="hidden" name="locations" value="allston">
+            -->
+            <div id="map-location-inputs"></div>
+        </div>
+    </fieldset>
+
     <fieldset class="basic-fields">
       <legend>Basic Info</legend>
 
@@ -185,12 +231,63 @@
   }
 
   .btn-primary {
-    margin-top: 0.5rem;
+    margin: 0 auto;
+    font-size: 20px;
+    max-width: 200px;
     padding: 0.6rem 1.2rem;
-    border-radius: 999px;
-    border: none;
+    border-radius: 15px;
+    color: black;
+    border: 2px solid rgba(0, 0, 0, 0.283);
     cursor: pointer;
+    font-weight: 570;
+    transition: all .3s ease-in-out;
+  }
+
+  .btn-primary:hover {
+    text-decoration: none;
+    background-color: #003366;
+    border: 2px solid black;
+    color: #ffffff;
+  }
+
+
+
+  .map-container {
+    width: 100%;
+    height: 320px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    margin-top: 0.5rem;
+  }
+
+  .location-mode-toggle {
+    display: inline-flex;
+    border-radius: 999px;
+    border: 1px solid #ddd;
+    overflow: hidden;
+    margin-bottom: 0.75rem;
+  }
+
+  .location-mode-toggle .mode-btn {
+    padding: 0.3rem 0.9rem;
+    border: none;
+    background: transparent;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+
+  .location-mode-toggle .mode-btn.active {
+    background: #f4f4f4;
     font-weight: 600;
   }
+
+  .helper-text {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 0.4rem;
+  }
+
 </style>
+
 {% endblock %}

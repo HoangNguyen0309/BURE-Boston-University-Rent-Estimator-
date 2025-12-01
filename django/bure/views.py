@@ -4,7 +4,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, View
 from django.urls import reverse
-# from bure_ml.prediction import predict_price
+from bure_ml.prediction import predict_price
 
 
 # Create your views here.
@@ -69,6 +69,13 @@ AMENITY_LABELS = {
     "Amenity_Views": "Views",
 }
 
+LOCATION_LABELS  = {
+    "allston": "Allston",
+    "brighton": "Brighton",
+    "fenway": "Fenway / Kenmore",
+    "back_bay": "Back Bay",
+}
+
 class RentEstimateSearch(View):
     ''' 
         A view that shows search form if no feature inputs, 
@@ -99,21 +106,29 @@ class RentEstimateSearch(View):
         basic_vals = { "baths": baths, "beds": beds, "sqft": sqft }
 
 
-        est_price = baths+beds+sqft
         for fname in SELECTED_FEATURES:
             if fname in ("baths", "beds", "sqft"):
                 continue
         
             feature_dict[fname] = 1.0 if request.GET.get(fname) else 0.0
-            est_price += 1 if request.GET.get(fname) else 0.0
 
 
-        # est_price = predict_price(feature_dict)
+        est_price = predict_price(feature_dict)
 
         enabled_amenities = [AMENITY_LABELS[key] for key in AMENITY_LABELS.keys() if feature_dict.get(key)]
+        
+        selected_locations = request.GET.getlist("locations")
+        selected_locations = list(dict.fromkeys(selected_locations)) # remove duplicates
+
+        print(selected_locations)
+        selected_locations_labels = [
+            LOCATION_LABELS.get(code, code) for code in selected_locations
+        ]
+
 
         context = {
             "est_price": round(est_price, 0),
+            "selected_locations": selected_locations_labels,
             "basic_vals": basic_vals,
             "enabled_amenities": enabled_amenities,
         }
