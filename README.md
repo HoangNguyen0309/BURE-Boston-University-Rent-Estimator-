@@ -114,8 +114,9 @@ python script_name.py
 ### 4. Running the Django Webapp
 
 ```
-Insert instructions here
+cd django
 
+python manage.py runserver
 ```
 
 Open http://127.0.0.1:8000/ in the browser
