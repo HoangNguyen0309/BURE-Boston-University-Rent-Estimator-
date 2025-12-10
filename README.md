@@ -68,13 +68,47 @@ Recommended:
 bash
 git clone https://github.com/HoangNguyen0309/BURE-Boston-University-Rent-Estimator-.git
 cd BURE-Boston-University-Rent-Estimator-
+```
+### 2. Install dependencies
+```
+pip install \
+  pandas numpy scikit-learn matplotlib seaborn \
+  django selenium beautifulsoup4 requests
+
 
 ```
 
+### How to Run the Modeling Pipeline
+
+A typical workflow for training and evaluating the rent-prediction models:
+
+### 1. Ensure you have a CSV dataset
+
+Example datasets included in the repository:
+
+- P/apartments_boston_minimal_amenities.csv
+- P/apartments_boston_Allston_minimal_amenities.csv
+- P/apartments_boston_Fenway_minimal_amenities.csv
+
+---
+
+### 2. Open the relevant modeling script
+
+Common modeling scripts:
+
+- linearRelationshipCharts.py : show the relationship between different features in charts
+- LRModel.py : train, test and output the model with its accuracy score
+- price_correlation.py: show the correlation between prices vs all other features
 
 
+### 3. Ruuning the scripts
+
+```
+cd models
+python script_name.py
 
 
+```
 
 
 
