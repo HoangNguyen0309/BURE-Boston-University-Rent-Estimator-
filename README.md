@@ -1,3 +1,116 @@
+# BURE — Boston University Rent Estimator
+
+BURE (Boston University Rent Estimator) is a data-driven project that predicts off-campus rental prices around Boston using listings scraped from Apartments.com.  
+
+The project focuses on:
+
+- Collecting and cleaning rental listings (price, beds, baths, sqft, address, amenities)
+- Exploring correlations between features and price
+- Training reproducible baseline models (e.g., linear regression)
+- Experimenting with a web front-end (Django) to serve predictions
+
+> This repository currently includes data collection/modeling scripts and an early Django prototype for a web UI.
+
+---
+
+## Repository structure
+
+At a high level:
+
+- `P/`  
+  Data and utility scripts related to data collection and preprocessing (CSV files, correlation outputs, etc.).
+
+- `models/`  
+  Modeling scripts (e.g., linear regression training/evaluation) that take cleaned CSVs and output metrics and charts.
+
+- `charts/`  
+  Generated plots and visualizations (price distributions, correlation heatmaps, etc.).
+
+- `django/`  
+  Early-stage Django project for turning the estimator into a web app (manage.py, app code, templates, etc.).
+
+- `Pipfile`  
+  [Pipenv](https://pipenv.pypa.io) environment descriptor (currently pinning `python_version = "3.13"`). :contentReference[oaicite:0]{index=0}  
+
+- `README.md`  
+  Project documentation (this file).
+
+> Some script filenames and CSVs may evolve; see comments at the top of each script for the most up-to-date usage.
+
+---
+
+## Supported environment
+
+The codebase assumes a modern CPython 3.x environment.
+
+Recommended:
+
+- **Python**: 3.11+  
+  > The current `Pipfile` pins Python 3.13; if your system doesn’t have it yet, 3.11 or 3.12 should work fine in practice.
+- **OS**:  
+  - Linux (Ubuntu), macOS — primary targets  
+  - Windows — should work, but paths and shell commands may differ
+- **Core Python packages** (install via `pip` or `pipenv`):
+  - `pandas`
+  - `numpy`
+  - `scikit-learn`
+  - `matplotlib`
+  - `seaborn`
+  - (Optional, for scraping / future work) `selenium`, `beautifulsoup4`, `requests`
+  - (Optional, for Django UI) `django`
+
+---
+
+## Getting started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/HoangNguyen0309/BURE-Boston-University-Rent-Estimator-.git
+cd BURE-Boston-University-Rent-Estimator-
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 **Midterm Report -- Boston University Rent Estimator**
 ======================================================
 
