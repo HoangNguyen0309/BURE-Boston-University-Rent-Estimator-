@@ -8,7 +8,7 @@
   <h1 style="margin: 10px;">Rent Estimate</h1>
   <p style="margin-bottom: 15px;">Enter your unit details and amenities to get an estimated monthly rent.</p>
 
-  <form method="get" action="">
+  <form method="get" action="" id="estimate-form">
 
     <fieldset class="basic-fields">
         <legend>Location</legend>
@@ -20,28 +20,27 @@
         </div>
 
         <div id="location-list-mode">
-
-            <label>
-              <input type="checkbox" name="locations" value="allston">
-              Allston
-            </label>
-            <label>
-              <input type="checkbox" name="locations" value="brighton">
-              Brighton
-            </label>
-            <label>
-              <input type="checkbox" name="locations" value="fenway">
-              Fenway / Kenmore
-            </label>
-            <label>
-              <input type="checkbox" name="locations" value="back_bay">
-              Back Bay
-            </label>
+          <label>
+            <input type="radio" name="location" value="allston">
+            Allston
+          </label>
+          <label>
+            <input type="radio" name="location" value="beacon_hill">
+            Beacon Hill
+          </label>
+          <label>
+            <input type="radio" name="location" value="south_boston">
+            South Boston
+          </label>
+          <label>
+            <input type="radio" name="location" value="back_bay">
+            Back Bay
+          </label>
         </div>
 
         <div id="location-map-mode" style="display: none;">
             <p class="helper-text">
-                Click one or more areas on the map to select locations.
+                Click one of the areas on the map to select locations.
             </p>
 
             <div id="location-map" class="map-container"></div>
@@ -88,93 +87,14 @@
       />
     </fieldset>
 
-    <fieldset class="amenities">
-      <legend>Amenities</legend>
+   <fieldset class="amenities">
+    <legend>Amenities</legend>
+    <div id="amenities-container">
+       <p>Select a location to see amenities.</p>
+    </div>
+  </fieldset>
 
-      <label>
-        <input type="checkbox" name="Amenity_Concierge" value="1">
-        Concierge
-      </label>
 
-      <label>
-        <input type="checkbox" name="Amenity_A_24_Hour_Access" value="1">
-        24 Hour Access
-      </label>
-
-      <label>
-        <input type="checkbox" name="Amenity_Washer_Dryer" value="1">
-        In-Unit Washer/Dryer
-      </label>
-
-      <label>
-        <input type="checkbox" name="Amenity_Fitness_Center" value="1">
-        Fitness Center
-      </label>
-
-      <label>
-        <input type="checkbox" name="Amenity_Double_Vanities" value="1">
-        Double Vanities
-      </label>
-
-      <label>
-        <input type="checkbox" name="Amenity_Conference_Rooms" value="1">
-        Conference Rooms
-      </label>
-
-      <label>
-        <input type="checkbox" name="Amenity_Island_Kitchen" value="1">
-        Island Kitchen
-      </label>
-
-      <label>
-        <input type="checkbox" name="Amenity_Walk_In_Closets" value="1">
-        Walk-In Closets
-      </label>
-
-      <label>
-        <input type="checkbox" name="Amenity_Package_Service" value="1">
-        Package Service
-      </label>
-
-      <label>
-        <input type="checkbox" name="Amenity_On_Site_Retail" value="1">
-        On-Site Retail
-      </label>
-
-      <label>
-        <input type="checkbox" name="Amenity_Air_Conditioning" value="1">
-        Air Conditioning
-      </label>
-
-      <label>
-        <input type="checkbox" name="Amenity_Public_Transportation" value="1">
-        Close to Public Transportation
-      </label>
-
-      <label>
-        <input type="checkbox" name="Amenity_Bicycle_Storage" value="1">
-        Bicycle Storage
-      </label>
-
-      <label>
-        <input type="checkbox" name="Amenity_Elevator" value="1">
-        Elevator
-      </label>
-
-      <label>
-        <input type="checkbox" name="Amenity_EV_Charging" value="1">
-        EV Charging
-      </label>
-
-      <label>
-        <input type="checkbox" name="Amenity_Recycling" value="1">
-        Recycling
-      </label>
-
-      <label>
-        <input type="checkbox" name="Amenity_Views" value="1">
-        View / City View
-      </label>
     </fieldset>
 
     <button type="submit" class="btn-primary">Get Estimate</button>
@@ -289,5 +209,58 @@
   }
 
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const locationRadios = document.querySelectorAll('input[name="location"]');
+    const amenitiesContainer = document.getElementById("amenities-container");
+
+    const amenitiesUrl = "{% url 'estimate_amenities' %}";
+
+    function renderAmenities(amenities) {
+      if (!amenities || amenities.length === 0) {
+        amenitiesContainer.innerHTML = "<p>No amenities configured for this location.</p>";
+        return;
+      }
+
+      amenitiesContainer.innerHTML = "";
+
+      amenities.forEach((amenity) => {
+        const label = document.createElement("label");
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.name = amenity.name;
+        checkbox.value = "1";
+
+        label.appendChild(checkbox);
+        label.appendChild(document.createTextNode(" " + amenity.label));
+
+        amenitiesContainer.appendChild(label);
+      });
+    }
+
+    locationRadios.forEach((radio) => {
+      radio.addEventListener("change", () => {
+        const loc = radio.value;
+
+        fetch(amenitiesUrl + "?location=" + encodeURIComponent(loc))
+          .then((response) => response.json())
+          .then((data) => {
+            renderAmenities(data.amenities);
+          })
+          .catch((err) => {
+            console.error("Error fetching amenities:", err);
+            amenitiesContainer.innerHTML = "<p>Could not load amenities.</p>";
+          });
+      });
+    });
+
+    const initiallyChecked = document.querySelector('input[name="location"]:checked');
+    if (initiallyChecked) {
+      initiallyChecked.dispatchEvent(new Event("change"));
+    }
+  });
+</script>
 
 {% endblock %}

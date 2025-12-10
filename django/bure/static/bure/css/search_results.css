@@ -43,6 +43,12 @@
     justify-items: center;
     list-style: none;
 
+    li {
+        display: flex;
+    }
+
+
+
 }
 
 
