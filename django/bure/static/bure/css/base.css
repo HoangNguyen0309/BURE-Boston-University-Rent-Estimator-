@@ -8,7 +8,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #fafafa;
+    background-color: #c5e9ffb6;
     color: #333;
 }
 
@@ -17,20 +17,25 @@ body {
     color: white;
     padding: 1rem 0;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    
 }
 
 .base-navbar ul {
     list-style: none;
     display: flex;
     justify-content: center;
-    gap: 17%;
+    align-items: center;
+    gap: 10%;
 }
 
 .base-navbar a {
+    display: flex;
     color: white;
     text-decoration: none;
     font-weight: 500;
+    font-size: 20px;
     transition: color 0.2s ease;
+    min-width: fit-content;
 }
 
 .base-navbar a:hover {

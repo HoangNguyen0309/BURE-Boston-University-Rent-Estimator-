@@ -13,17 +13,30 @@
 <div class="container">
     <h1>About Us</h1>
 
+    <div style="max-width: 400px; max-height: 300px;overflow-y: hidden; margin: 0 auto;">
+        <img src="{% static 'bure/img/BURE-logo.png' %}" style="max-width: 100%">
+    </div>
+    
     <fieldset class="section">
         <legend>Hoang Nguyen</legend>
-        <h4></h4>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Soluta veritatis minus nostrum aliquam rerum ut impedit, tempore aspernatur quas libero sint cumque cupiditate animi adipisci expedita sit molestias vel inventore.</p>
+        <h4>"Hard work beats talent when talent fails to work hard"</h4>
+        <p>I am a Computer Science graduate student at Boston 
+            University who has built scalable systems and automation 
+            pipelines that improve efficiency, reduce cost, and support 
+            thousands of users. I am interested in machine learning 
+            applications that enhance decision making and efficiency.</p>
        
     </fieldset>
 
     <fieldset class="section">
         <legend>Ian Campbell</legend>
-        <h4>Sometimes good things fall apart so better things can fall together</h4>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Soluta veritatis minus nostrum aliquam rerum ut impedit, tempore aspernatur quas libero sint cumque cupiditate animi adipisci expedita sit molestias vel inventore.</p>
+        <h4>"Frustrastion shouldn't be towards failure, but in failing to act"</h4>
+        <p>
+            I started out studying criminal justice at the University of New Haven, 
+            but transferred to Boston University to pursue more creative technical 
+            work. Since then, I've built distributed consensus algorithms and full stack 
+            web applications, and I'm interested in bridging the gap between embedded 
+            systems and full stack engineering.</p>
 </fieldset>
 
 <style>
@@ -52,6 +65,28 @@
         font-size: larger;
         padding: 0 0.25rem;
     }
+
+    .container {
+    padding: 4rem 1rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    max-width: 800px;
+    margin: 3rem auto;
+}
+
+.container h1 {
+    color: #003366;
+    font-size: 2.2rem;
+}
+
+.container p {
+    color: #555;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+
 
 </style>
 

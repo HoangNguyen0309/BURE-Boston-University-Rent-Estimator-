@@ -25,6 +25,7 @@ class DataView(TemplateView):
     template_name = "bure/data.html"
 
 
+
 SELECTED_FEATURES = [
     "baths",
     "beds",

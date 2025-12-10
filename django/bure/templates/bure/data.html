@@ -1,6 +1,5 @@
 <!-- bure/templates/bure/data.html -->
 
-
 {% extends 'bure/base.html' %}
 {% load static %}
 
@@ -10,70 +9,370 @@
 
 {% block content %}
 
-<div class="container">
-    <h1>Data Extraction, Analysis, and Representation</h1>
+<div class="data-container">
+    <h1>Boston University Rent Estimator (BURE)</h1>
+    <p class="lead">
+        BURE is a Boston rental price prediction project that uses interpretable linear regression
+        models to estimate rent across different neighborhoods, built from scraped apartment
+        listings and careful feature engineering.
+    </p>
 
-    <fieldset class="func-explantion">
-        <legend>Data Extraction</legend>
-        <h4>Overview</h4>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Soluta veritatis minus nostrum aliquam rerum ut impedit, tempore aspernatur quas libero sint cumque cupiditate animi adipisci expedita sit molestias vel inventore.</p>
-        <h4>Method</h4>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Soluta veritatis minus nostrum aliquam rerum ut impedit, tempore aspernatur quas libero sint cumque cupiditate animi adipisci expedita sit molestias vel inventore.</p>
-        <h4>Implementation</h4>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Soluta veritatis minus nostrum aliquam rerum ut impedit, tempore aspernatur quas libero sint cumque cupiditate animi adipisci expedita sit molestias vel inventore.</p>
+    <!-- Project Overview -->
+    <fieldset class="data-section">
+        <legend>Project Overview</legend>
 
+        <div class="section-body">
+            <div class="section-text">
+                <p>
+                    The goal of this project is to predict rental prices across Boston neighborhoods
+                    using models that are both accurate and easy to interpret. We focus on linear
+                    regression so that we can clearly see how features like square footage, beds,
+                    baths, and amenities contribute to price.
+                </p>
+                <p>
+                    The full pipeline includes data scraping, cleaning, feature extraction, data
+                    visualization, model training, and borough-level evaluation, with an eye
+                    toward eventually deploying a user-facing web app.
+                </p>
+            </div>
+
+            <figure class="section-figure">
+                <img src="{% static 'bure/img/pipelinemodel.png' %}"
+                     alt="Diagram of the BURE data and modeling pipeline">
+                <figcaption>Overall BURE pipeline: scraping → cleaning → features → models → predictions.</figcaption>
+            </figure>
+        </div>
     </fieldset>
 
-    <fieldset class="func-explantion">
-        <legend>Data analysis</legend>
-        <h4>Overview</h4>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Soluta veritatis minus nostrum aliquam rerum ut impedit, tempore aspernatur quas libero sint cumque cupiditate animi adipisci expedita sit molestias vel inventore.</p>
-        <h4>Method</h4>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Soluta veritatis minus nostrum aliquam rerum ut impedit, tempore aspernatur quas libero sint cumque cupiditate animi adipisci expedita sit molestias vel inventore.</p>
-        <h4>Implementation</h4>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Soluta veritatis minus nostrum aliquam rerum ut impedit, tempore aspernatur quas libero sint cumque cupiditate animi adipisci expedita sit molestias vel inventore.</p>
-</fieldset>
+    <!-- Data Collection -->
+    <fieldset class="data-section">
+        <legend>Data Collection</legend>
 
-    <fieldset class="func-explantion">
-        <legend>Website Implementation</legend>
-        <h4>Overview</h4>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Soluta veritatis minus nostrum aliquam rerum ut impedit, tempore aspernatur quas libero sint cumque cupiditate animi adipisci expedita sit molestias vel inventore.</p>
-        <h4>Method</h4>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Soluta veritatis minus nostrum aliquam rerum ut impedit, tempore aspernatur quas libero sint cumque cupiditate animi adipisci expedita sit molestias vel inventore.</p>
-        <h4>Implementation</h4>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Soluta veritatis minus nostrum aliquam rerum ut impedit, tempore aspernatur quas libero sint cumque cupiditate animi adipisci expedita sit molestias vel inventore.</p>
- </fieldset>
+        <div class="section-body">
+            <div class="section-text">
+                <p>
+                    All data was collected from <strong>Apartments.com</strong> using a custom web scraper.
+                    For each floorplan (not just each building), we captured monthly rent, number
+                    of beds and baths, square footage, full address, neighborhood/borough,
+                    a list of amenities, and the original listing URL. Treating each floorplan
+                    as a separate row increases variation and preserves meaningful differences
+                    within the same building.
+                </p>
+            </div>
+
+            <figure class="section-figure">
+                <img src="{% static 'bure/img/scrapeddata.png' %}"
+                     alt="Screenshot or diagram of scraped apartment listings">
+                <figcaption>Example of scraped listings and the fields used in our dataset.</figcaption>
+            </figure>
+        </div>
+    </fieldset>
+
+    <!-- Data Cleaning -->
+    <fieldset class="data-section">
+        <legend>Data Cleaning</legend>
+
+        <div class="section-body">
+            <div class="section-text">
+                <p>
+                    Like most scraped datasets, the raw data required substantial cleaning. We
+                    removed rows with missing critical values such as price or square footage,
+                    converted “Studio” labels into 0 bedrooms for consistency, and corrected
+                    obviously incorrect entries (for example, units listed at 10,000 sqft or
+                    $25,000 per month).
+                </p>
+                <p>
+                    Amenities were normalized so that near-duplicates like “Fitness Center,”
+                    “Gym,” and “On-site Fitness” became a single standardized feature, and
+                    neighborhood names were aligned with Boston’s borough boundaries.
+                    After these steps, we had a cleaner and more reliable dataset ready
+                    for feature extraction and modeling.
+                </p>
+                <p>
+                    One important detail is that we scraped <b>floorplans</b>, not just properties.
+                    This means a building with multiple unit types, for example a studio and a 
+                    1 bedroom, becomes two separate rows.This gives us much richer variation 
+                    across price, size, and amenities, and avoids averaging away meaningful differences
+                </p>
+            </div>
+        </div>
+    </fieldset>
+
+    <!-- Feature Engineering -->
+    <fieldset class="data-section">
+        <legend>Feature Engineering</legend>
+
+        <div class="section-body">
+            <div class="section-text">
+                <p>
+                    From the cleaned dataset, we engineered features suitable for linear
+                    regression. Core numeric features include beds, baths, and square footage.
+                    Amenities were converted into binary indicators such as
+                    <code>Amenity_Concierge</code> or <code>Amenity_Fitness_Center</code>, and we extracted
+                    borough and zip-code information to support geographic segmentation.
+                </p>
+                <p>
+                    This structured feature matrix forms the backbone for both our visual
+                    exploration and our predictive models.:contentReference[oaicite:7]{index=7}
+                </p>
+            </div>
+
+            <figure class="section-figure">
+                <img src="{% static 'bure/img/cleaneddata.png' %}"
+                     alt="Table of engineered features for each listing">
+                <figcaption>Sample feature matrix combining numeric, amenity, and location features.</figcaption>
+            </figure>
+        </div>
+    </fieldset>
+
+    <!-- Data Visualization & Exploration -->
+    <fieldset class="data-section">
+        <legend>Data Visualization & Exploration</legend>
+
+        <div class="section-body">
+            <div class="section-text">
+                <p>
+                    Before training any models, we explored the data visually. Scatter plots of
+                    <strong>price vs. square footage</strong> and <strong>price vs. number of baths</strong> revealed strong
+                    positive trends, especially after removing extreme outliers that distorted
+                    the global regression line.
+                </p>
+                <p>
+                    We also built correlation heatmaps and borough-level price distributions.
+                    These showed that square footage, beds, and baths were consistently
+                    correlated with price, and that certain amenities (like in-unit laundry,
+                    concierge, and fitness centers) added a clear premium. At the same time,
+                    price distributions varied significantly between neighborhoods, hinting that
+                    Boston should not be treated as a single homogeneous rental market.
+                </p>
+            </div>
+
+            <div class="figure-grid">
+                <figure class="section-figure">
+                    <img src="{% static 'bure/img/pricevssqft.png' %}"
+                         alt="Scatter plot of price vs square footage">
+                    <figcaption>Price vs. square footage, highlighting the effect of outliers.</figcaption>
+                </figure>
+
+                <figure class="section-figure">
+                    <img src="{% static 'bure/img/pricevsbaths.png' %}"
+                         alt="Scatter plot of price vs baths">
+                    <figcaption>Price vs. number of baths, showing a strong upward trend.</figcaption>
+                </figure>
+
+                <figure class="section-figure">
+                    <img src="{% static 'bure/img/pricebyamen.png' %}"
+                         alt="Boxplot of price grouped by balcony amenity">
+                    <figcaption>Price distributions for units with and without a balcony.</figcaption>
+                </figure>
+            </div>
+        </div>
+    </fieldset>
+
+    <!-- Neighborhood-Level Modeling -->
+    <fieldset class="data-section">
+        <legend>Neighborhood-Level Modeling</legend>
+
+        <div class="section-body">
+            <div class="section-text">
+                <p>
+                    Initial experiments with a single global model for all of Boston produced
+                    noticeably worse accuracy. Boston’s rental market is highly fragmented—
+                    luxury high-rises downtown, student-heavy buildings in Allston, historic
+                    brownstones in Back Bay, and older multifamily housing in Dorchester all
+                    behave differently.
+                </p>
+                <p>
+                    To address this, we trained separate models for each borough. This
+                    neighborhood-level segmentation dramatically improved performance and
+                    paved the way for even finer-grained zip-code-level models in the future.
+                </p>
+            </div>
+
+            <figure class="section-figure">
+                <img src="{% static 'bure/img/mapofboston.png' %}"
+                     alt="Map or diagram showing borough-specific models">
+                <figcaption>Borough-specific modeling replaces a single global model.</figcaption>
+            </figure>
+        </div>
+    </fieldset>
+
+    <!-- Model Creation & Training -->
+    <fieldset class="data-section">
+        <legend>Model Creation & Training</legend>
+
+        <div class="section-body">
+            <div class="section-text">
+                <p>
+                    Our main predictive model is <strong>linear regression</strong>. We selected it because it is
+                    simple, interpretable, and well-suited to relationships that are roughly
+                    linear. The coefficients directly indicate how much each feature shifts the
+                    predicted rent.
+                </p>
+                <p>
+                    We compared the regression model against a naïve baseline that predicts
+                    the average rent in each borough. Using a standard train/test split and
+                    repeating evaluation over many random splits, we found that the linear
+                    models consistently outperformed this baseline, confirming that our features
+                    add real predictive value.
+                </p>
+                <p>
+                    To avoid overfitting and keep the model interpretable, we applied
+                    <strong>Top-K correlation-based feature selection</strong>, keeping only the most predictive
+                    features in each borough. This improved performance while keeping the
+                    models compact.
+                </p>
+            </div>
+
+            <figure class="section-figure">
+                <img src="{% static 'bure/img/model_training_placeholder.png' %}"
+                     alt="Diagram of train/test split and model training process">
+                <figcaption>Train/test workflow with borough-specific linear regression models.</figcaption>
+            </figure>
+        </div>
+    </fieldset>
+
+    <!-- Model Performance & Insights -->
+    <fieldset class="data-section">
+        <legend>Model Performance & Key Insights</legend>
+
+        <div class="section-body">
+            <div class="section-text">
+                <p>
+                    Across most boroughs, the final models achieved R² scores above 0.80,
+                    meaning they explain more than 80% of the variation in rent. In highly
+                    uniform neighborhoods, R² often exceeded 0.90. In contrast, a single
+                    all-city model performed significantly worse, reinforcing the value of
+                    geographic segmentation.
+                </p>
+                <p>
+                    The main takeaways are:
+                </p>
+                <ul>
+                    <li>Square footage, beds, and baths are the core drivers of rental price.</li>
+                    <li>Certain amenities add a clear premium, while others contribute little.</li>
+                    <li>Modeling at the borough level (and eventually zip-code level) is
+                        crucial for accuracy in a fragmented market like Boston.</li>
+                    <li>A single global model underfits the diversity of housing stock.</li>
+                </ul>
+            </div>
+
+            <figure class="section-figure">
+                <img src="{% static 'bure/img/r2test.png' %}"
+                     alt="Bar chart of R² scores by borough">
+                <figcaption>Example of R² performance comparison across boroughs and the global model.</figcaption>
+            </figure>
+        </div>
+    </fieldset>
+
+    <!-- Next Steps & Website -->
+    <fieldset class="data-section">
+        <legend>Next Steps & Website Integration</legend>
+
+        <div class="section-body">
+            <div class="section-text">
+                <p>
+                    Future improvements include moving from borough-level to zip-code-level
+                    modeling, adding new features such as building age, walkability, and transit
+                    access, and exploring regularized linear models (Lasso, Ridge) and
+                    tree-based baselines like Random Forest or XGBoost.
+                </p>
+                <p>
+                    The BURE website ties this work together by providing a simple interface
+                    where users can enter unit details and receive an estimated rent based on
+                    the trained models, making the analysis and code directly useful to
+                    renters, property managers, and researchers.
+                </p>
+            </div>
+
+            <figure class="section-figure">
+                <img src="{% static 'bure/img/webappview.png' %}"
+                     alt="Screenshot of the BURE web interface">
+                <figcaption>Current BURE web interface for rent prediction.</figcaption>
+            </figure>
+        </div>
+    </fieldset>
 </div>
 
 <style>
-    
+    .data-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 1.5rem 1rem 3rem;
+    }
 
-    fieldset {
-        margin: 2.5rem;
-        border: 2px solid #000000;
-        padding: 1rem 1.25rem;
+    .data-container h1 {
+        margin-bottom: 0.5rem;
+    }
+
+    .data-container .lead {
+        margin-bottom: 1.5rem;
+        color: #555;
+    }
+
+    fieldset.data-section {
+        margin: 2rem 0;
+        border: 2px solid #000;
         border-radius: 8px;
-
-        h4 {
-            color:#222222;
-            margin: .7rem;
-        }
-
-        p {
-            color: #515151;
-            font-size: medium;
-        }
+        padding: 1.25rem 1.5rem;
     }
 
-    legend {
-        color: #222222;
+    fieldset.data-section legend {
         font-weight: 600;
-        font-size: larger;
-        padding: 0 0.25rem;
+        font-size: 1.2rem;
+        padding: 0 0.35rem;
     }
 
+    .section-body {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        align-items: flex-start;
+    }
+
+    .section-text {
+        flex: 1 1 300px;
+    }
+
+    .section-text p {
+        margin-bottom: 0.75rem;
+        color: #444;
+    }
+
+    .section-text ul {
+        margin: 0.5rem 0 0.5rem 1.3rem;
+    }
+
+    .section-figure {
+        flex: 1 1 260px;
+        text-align: center;
+    }
+
+    .section-figure img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 6px;
+        margin-bottom: 0.3rem;
+    }
+
+    .section-figure figcaption {
+        font-size: 0.9rem;
+        color: #666;
+    }
+
+    .figure-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.25rem;
+        margin-top: 0.75rem;
+        width: 100%;
+    }
+
+    @media (max-width: 700px) {
+        .section-body {
+            flex-direction: column;
+        }
+    }
 </style>
 
 {% endblock %}
-
-

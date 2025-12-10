@@ -1,12 +1,43 @@
 /* bure/static/bure/css/data.css */
 
-/* --- Home page styling --- */
+/* --- Data page styling --- */
+
+.container {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    fieldset {
+        margin: 2.5rem;
+        border: 2px solid #000000;
+        padding: 1rem 1.25rem;
+        border-radius: 8px;
+    }
+
+    fieldset h4 {
+        color: #222222;
+        margin: 0.7rem 0;
+    }
+
+    fieldset p {
+        color: #515151;
+        font-size: medium;
+        line-height: 1.4;
+    }
+
+    legend {
+        color: #222222;
+        font-weight: 600;
+        font-size: larger;
+        padding: 0 0.25rem;
+    }
+
 
 .container {
     text-align: center;
     padding: 4rem 1rem;
-    max-width: 800px;
-    margin: 3rem auto;
+    margin: 0 auto;
+    max-width: 900px;
 }
 
 .container h1 {
@@ -19,4 +50,85 @@
     color: #555;
     font-size: 1.1rem;
     line-height: 1.6;
+}
+
+.viz-carousel {
+    position: relative;
+    max-width: 700px;
+    margin: 1.5rem auto;
+    overflow: hidden;      /* keep, still useful */
+}
+
+.viz-track {
+    /* you can keep this or drop it; no transform needed now */
+    display: block;
+}
+
+.viz-slide {
+    display: none;         /* hide all slides by default */
+    box-sizing: border-box;
+    padding: 1rem 1.5rem;
+    min-width: 100%;
+}
+
+.viz-slide-active {
+    display: block;        /* only the active slide is visible */
+}
+
+.viz-slide img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto 0.75rem auto;
+    border-radius: 6px;
+}
+
+/* arrows & dots can stay as before */
+.viz-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 0.4rem 0.7rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border-radius: 999px;
+}
+
+.viz-arrow-left {
+    left: 0.4rem;
+}
+
+.viz-arrow-right {
+    right: 0.4rem;
+}
+
+.viz-arrow:hover {
+    background: rgba(0, 0, 0, 0.12);
+}
+
+.viz-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+}
+
+.viz-dots .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    background: #d0d0d0;
+    cursor: pointer;
+}
+
+.viz-dots .dot-active {
+    background: #555555;
+}
+
+.button-box {
+    display:flex;
+    flex-direction: row;
 }
