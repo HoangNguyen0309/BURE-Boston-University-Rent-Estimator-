@@ -12,9 +12,11 @@
 <div class="data-container">
     <h1>Boston University Rent Estimator (BURE)</h1>
     <p class="lead">
+        
         BURE is a Boston rental price prediction project that uses interpretable linear regression
         models to estimate rent across different neighborhoods, built from scraped apartment
         listings and careful feature engineering.
+    
     </p>
 
     <!-- Project Overview -->
@@ -24,15 +26,19 @@
         <div class="section-body">
             <div class="section-text">
                 <p>
+
                     The goal of this project is to predict rental prices across Boston neighborhoods
                     using models that are both accurate and easy to interpret. We focus on linear
                     regression so that we can clearly see how features like square footage, beds,
                     baths, and amenities contribute to price.
+                
                 </p>
                 <p>
+
                     The full pipeline includes data scraping, cleaning, feature extraction, data
                     visualization, model training, and borough-level evaluation, with an eye
                     toward eventually deploying a user-facing web app.
+               
                 </p>
             </div>
 
@@ -51,12 +57,14 @@
         <div class="section-body">
             <div class="section-text">
                 <p>
+
                     All data was collected from <strong>Apartments.com</strong> using a custom web scraper.
                     For each floorplan (not just each building), we captured monthly rent, number
                     of beds and baths, square footage, full address, neighborhood/borough,
                     a list of amenities, and the original listing URL. Treating each floorplan
                     as a separate row increases variation and preserves meaningful differences
                     within the same building.
+                
                 </p>
             </div>
 
@@ -75,24 +83,30 @@
         <div class="section-body">
             <div class="section-text">
                 <p>
+
                     Like most scraped datasets, the raw data required substantial cleaning. We
                     removed rows with missing critical values such as price or square footage,
                     converted “Studio” labels into 0 bedrooms for consistency, and corrected
                     obviously incorrect entries (for example, units listed at 10,000 sqft or
                     $25,000 per month).
+                
                 </p>
                 <p>
+
                     Amenities were normalized so that near-duplicates like “Fitness Center,”
                     “Gym,” and “On-site Fitness” became a single standardized feature, and
                     neighborhood names were aligned with Boston’s borough boundaries.
                     After these steps, we had a cleaner and more reliable dataset ready
                     for feature extraction and modeling.
+                
                 </p>
                 <p>
+                    
                     One important detail is that we scraped <b>floorplans</b>, not just properties.
                     This means a building with multiple unit types, for example a studio and a 
                     1 bedroom, becomes two separate rows.This gives us much richer variation 
                     across price, size, and amenities, and avoids averaging away meaningful differences
+                
                 </p>
             </div>
         </div>
@@ -105,15 +119,19 @@
         <div class="section-body">
             <div class="section-text">
                 <p>
+
                     From the cleaned dataset, we engineered features suitable for linear
                     regression. Core numeric features include beds, baths, and square footage.
                     Amenities were converted into binary indicators such as
                     <code>Amenity_Concierge</code> or <code>Amenity_Fitness_Center</code>, and we extracted
                     borough and zip-code information to support geographic segmentation.
+                
                 </p>
                 <p>
+
                     This structured feature matrix forms the backbone for both our visual
-                    exploration and our predictive models.:contentReference[oaicite:7]{index=7}
+                    exploration and our predictive models.
+                
                 </p>
             </div>
 
@@ -176,16 +194,20 @@
         <div class="section-body">
             <div class="section-text">
                 <p>
+
                     Initial experiments with a single global model for all of Boston produced
                     noticeably worse accuracy. Boston’s rental market is highly fragmented—
                     luxury high-rises downtown, student-heavy buildings in Allston, historic
                     brownstones in Back Bay, and older multifamily housing in Dorchester all
                     behave differently.
+               
                 </p>
                 <p>
+
                     To address this, we trained separate models for each borough. This
                     neighborhood-level segmentation dramatically improved performance and
                     paved the way for even finer-grained zip-code-level models in the future.
+                
                 </p>
             </div>
 
@@ -204,23 +226,29 @@
         <div class="section-body">
             <div class="section-text">
                 <p>
+
                     Our main predictive model is <strong>linear regression</strong>. We selected it because it is
                     simple, interpretable, and well-suited to relationships that are roughly
                     linear. The coefficients directly indicate how much each feature shifts the
                     predicted rent.
+                
                 </p>
                 <p>
+
                     We compared the regression model against a naïve baseline that predicts
                     the average rent in each borough. Using a standard train/test split and
                     repeating evaluation over many random splits, we found that the linear
                     models consistently outperformed this baseline, confirming that our features
                     add real predictive value.
+                
                 </p>
                 <p>
+
                     To avoid overfitting and keep the model interpretable, we applied
                     <strong>Top-K correlation-based feature selection</strong>, keeping only the most predictive
                     features in each borough. This improved performance while keeping the
                     models compact.
+                
                 </p>
             </div>
         </div>
@@ -238,16 +266,21 @@
                     uniform neighborhoods, R² often exceeded 0.90. In contrast, a single
                     all-city model performed significantly worse, reinforcing the value of
                     geographic segmentation.
+                
                 </p>
                 <p>
+
                     The main takeaways are:
+                
                 </p>
                 <ul>
+
                     <li>Square footage, beds, and baths are the core drivers of rental price.</li>
                     <li>Certain amenities add a clear premium, while others contribute little.</li>
                     <li>Modeling at the borough level (and eventually zip-code level) is
                         crucial for accuracy in a fragmented market like Boston.</li>
                     <li>A single global model underfits the diversity of housing stock.</li>
+               
                 </ul>
             </div>
 
@@ -266,16 +299,20 @@
         <div class="section-body">
             <div class="section-text">
                 <p>
+
                     Future improvements include moving from borough-level to zip-code-level
                     modeling, adding new features such as building age, walkability, and transit
                     access, and exploring regularized linear models (Lasso, Ridge) and
                     tree-based baselines like Random Forest or XGBoost.
+                
                 </p>
                 <p>
+
                     The BURE website ties this work together by providing a simple interface
                     where users can enter unit details and receive an estimated rent based on
                     the trained models, making the analysis and code directly useful to
                     renters, property managers, and researchers.
+                
                 </p>
             </div>
 
@@ -287,6 +324,7 @@
         </div>
     </fieldset>
 </div>
+
 
 <style>
     .data-container {
