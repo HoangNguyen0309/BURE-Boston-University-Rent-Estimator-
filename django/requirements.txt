@@ -1,0 +1,3 @@
+gunicorn==25.1.0
+packaging==26.0
+whitenoise==6.12.0
